@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: 5elementsofai
+  name: question-answering
+  labels:
+    app: question-answering
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: question-answering
+  template:
+    metadata:
+      labels:
+        app: question-answering
+    spec:
+      containers:
+        - name: question-answering
+          image: 5elementsofai/question-answering:<VERSION>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              memory: "2048Mi"
+              cpu: "500m"
+      restartPolicy: Always

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: 5elementsofai
+  name: question-answering
+  labels:
+    service: question-answering
+spec:
+  type: LoadBalancer
+  selector:
+    app: question-answering
+  ports:
+    - port: 5000
+      targetPort: 5000

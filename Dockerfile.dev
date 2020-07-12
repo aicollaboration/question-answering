@@ -1,0 +1,22 @@
+FROM python:3.7
+
+WORKDIR /app
+
+ENV FLASK_APP app.py
+ENV FLASK_RUN_HOST 0.0.0.0
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g nodemon
+
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+
+COPY . /app
+
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=development
+
+
+CMD ["nodemon"]

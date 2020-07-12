@@ -1,0 +1,34 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - deploy
+
+before_script:
+  - apk --update add git
+
+build:
+  only:
+    - master
+  stage: build
+  script:
+    - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD" docker.io
+    - docker build --cache-from "5elementsofai/$CI_PROJECT_TITLE:latest" --tag "5elementsofai/$CI_PROJECT_TITLE:latest" --tag "5elementsofai/$CI_PROJECT_TITLE:$CI_COMMIT_SHA" .
+    - docker push "5elementsofai/$CI_PROJECT_TITLE:$CI_COMMIT_SHA"
+
+deploy-kubernetes:
+  image: alpine/k8s:1.14.6
+  only:
+    - master
+  stage: deploy
+  script:
+    - kubectl config set-cluster "$K8S_CLUSTER_NAME" --server="$K8S_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials "$K8S_USER" --token="$K8S_TOKEN"
+    - kubectl config set-context "$K8S_CONTEXT" --cluster="$K8S_CLUSTER_NAME" --user="$K8S_USER"
+    - kubectl config use-context "$K8S_CONTEXT"
+    - sed -i "s/<VERSION>/${CI_COMMIT_SHA}/g" deployment/manifests/deployment.yml
+    - kubectl apply -f deployment/manifests/deployment.yml
+    - kubectl apply -f deployment/manifests/service.yml

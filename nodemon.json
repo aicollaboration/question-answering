@@ -1,0 +1,10 @@
+{
+    "watch": [
+        "*.py"
+    ],
+    "ext": "py",
+    "ignore": [
+        "__pycache__"
+    ],
+    "exec": "python app.py"
+}
