@@ -46,7 +46,7 @@ def predict():
     
     print('answer_tokens_to_string ', answer_tokens_to_string)
     
-    return jsonify(answer_tokens_to_string)
+    return jsonify({ 'answer': answer_tokens_to_string })
     
 
 if __name__ == "__main__":
