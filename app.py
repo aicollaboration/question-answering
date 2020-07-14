@@ -44,7 +44,9 @@ def predict():
     all_tokens = tokenizer.convert_ids_to_tokens(input_ids)
     answer_tokens_to_string = tokenizer.convert_tokens_to_string(answer_tokens)
     
-    return answer_tokens_to_string
+    print('answer_tokens_to_string ', answer_tokens_to_string)
+    
+    return jsonify(answer_tokens_to_string)
     
 
 if __name__ == "__main__":
