@@ -19,6 +19,9 @@ spec:
         - name: question-answering
           image: 5elementsofai/question-answering:<VERSION>
           imagePullPolicy: Always
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "0"
           ports:
             - containerPort: 5000
           resources:
