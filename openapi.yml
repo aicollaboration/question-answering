@@ -1,0 +1,83 @@
+openapi: "3.0.1"
+info:
+  title: Micro model service for questions answering
+  version: 1.0.0
+  description: It will use a pretrained bert
+servers:
+  - url: https://api.5elements.ai/question-answering/api/1.0
+paths:
+  /ping:
+    get:
+      operationId: ping
+      responses:
+        200:
+          description: It will return a pong when everything if correct
+  /info:
+    get:
+      operationId: info
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Info"
+  /definition:
+    get:
+      operationId: definition
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Definition"
+  /predict:
+    post:
+      operationId: predict
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Input"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Output"
+components:
+  schemas:
+    Info:
+      type: object
+      properties:
+        version:
+          type: string
+        project:
+          type: string
+        service:
+          type: string
+        language:
+          type: string
+        type:
+          type: string
+        date:
+          type: string
+          format: date-time
+    Definition:
+      type: object
+    Input:
+      type: object
+      properties:
+        context:
+          type: string
+          description: The text you want to search in
+        question:
+          type: string
+    Output:
+      type: object
+      properties:
+        answer:
+          type: string
