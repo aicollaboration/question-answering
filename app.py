@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from transformers import DistilBertTokenizer, DistilBertForQuestionAnswering
 import torch
+import yaml
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -16,6 +17,14 @@ API_V1 = '/api/1.0'
 @app.route(API_V1 + '/ping', methods=['GET'])
 def ping():
     return "pong"
+
+@app.route(API_V1 + '/definition', methods=['GET'])
+def definition():
+    with open("./openapi.yml", 'r') as stream:
+        try:
+            return jsonify(yaml.safe_load(stream))
+        except yaml.YAMLError as exception:
+            return jsonify(exception)
 
 @app.route(API_V1 + '/info', methods=['GET'])
 def info():

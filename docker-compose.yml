@@ -3,16 +3,10 @@ services:
   question-answering:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - 5060:5000
     environment:
       PYTHONUNBUFFERED: 1
     volumes: 
       - ".:/app"
-    networks:
-      - backend_network
-
-networks:
-  backend_network:
-    external: true

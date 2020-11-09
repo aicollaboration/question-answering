@@ -1,0 +1,51 @@
+oms: 1
+
+info:
+  version: 1.0.0
+  title: Micro model service for questions answering
+  description: It will use a pretrained bert
+  contact:
+    name: Tobias Oberrauch
+    url: https://www.pioneers.ai
+    email: tobias.oberrauch@pioneers.ai
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT 
+
+lifecycle:
+  startup:
+    command: ['flask', 'run']
+
+health:
+  http:
+    path: /ping
+    port: 80
+
+actions:
+  predict:
+    help: Predicts an answer to a given question
+    http:
+      port: 80
+      method: post
+      path: /predict
+    arguments:
+      units:
+        type: number
+        in: query
+        required: true
+      from:
+        type: string
+        in: query
+        required: true
+      to:
+        type: string
+        in: query
+        required: true
+    output:
+      type: object
+      contentType: application/json
+      properties:
+        units:
+          type: number
+        currency:
+          type: string
