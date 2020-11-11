@@ -15,7 +15,7 @@ model = DistilBertForQuestionAnswering.from_pretrained('distilbert-base-uncased-
 API_V1 = '/api/1.0'
 
 @app.route('/', methods=['GET'])
-def info():
+def index():
     return jsonify({
         "status": "it works"
     })
