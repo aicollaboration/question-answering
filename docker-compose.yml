@@ -3,7 +3,7 @@ services:
   question-answering:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - 5060:5000
     environment:
