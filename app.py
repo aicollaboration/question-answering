@@ -14,6 +14,12 @@ model = DistilBertForQuestionAnswering.from_pretrained('distilbert-base-uncased-
 
 API_V1 = '/api/1.0'
 
+@app.route('/', methods=['GET'])
+def info():
+    return jsonify({
+        "status": "it works"
+    })
+
 @app.route(API_V1 + '/ping', methods=['GET'])
 def ping():
     return "pong"
@@ -49,8 +55,6 @@ def predict():
 
     ans_tokens = input_ids[torch.argmax(start_scores) : torch.argmax(end_scores)+1]
     answer_tokens = tokenizer.convert_ids_to_tokens(ans_tokens , skip_special_tokens=True)
-
-    all_tokens = tokenizer.convert_ids_to_tokens(input_ids)
     answer_tokens_to_string = tokenizer.convert_tokens_to_string(answer_tokens)
     
     print('answer_tokens_to_string ', answer_tokens_to_string)
