@@ -12,11 +12,11 @@ spec:
     - aiproduct.io
     secretName: tls-latest-aiproduct.io
   rules:
-   - host: question-answering.aiproduct.io
+   - host: <repo>.aiproduct.io
      http:
       paths:
       - path: /
         backend:
-          serviceName: question-answering
+          serviceName: <repo>
           servicePort: 5000
 
