@@ -49,9 +49,27 @@ def info():
 def predict():
     data = request.json
     
+    '''
+    inputs = tokenizer.encode_plus(data['question'], data['context'], add_special_tokens=True, return_tensors="pt")
+    input_ids = inputs["input_ids"]
+    
+    answer_start_scores, answer_end_scores = model(input_ids)
+    
+    print(answer_start_scores, answer_end_scores)
+    
+    return jsonify({ 'answer_start_scores': answer_start_scores, 'answer_end_scores': answer_end_scores })
+    '''
+    
+    
     encoding = tokenizer.encode_plus(data['question'], data['context'])
     input_ids, attention_mask = encoding["input_ids"], encoding["attention_mask"]
     start_scores, end_scores = model(torch.tensor([input_ids]), attention_mask=torch.tensor([attention_mask]))
+    
+    print('####')
+    start = torch.argmax(start_scores)
+    end = torch.argmax(end_scores)
+    print(start, end)
+    print('####')
 
     ans_tokens = input_ids[torch.argmax(start_scores) : torch.argmax(end_scores)+1]
     answer_tokens = tokenizer.convert_ids_to_tokens(ans_tokens , skip_special_tokens=True)

@@ -1,40 +1,14 @@
-openapi: "3.0.1"
+openapi: 3.1.0
 info:
   title: Micro model service for questions answering
   version: 1.0.0
   description: It will use a pretrained bert
 servers:
-  - url: https://api.5elements.ai/question-answering/api/1.0
-paths:
-  /ping:
-    get:
-      operationId: ping
-      responses:
-        200:
-          description: It will return a pong when everything if correct
-  /info:
-    get:
-      operationId: info
-      responses:
-        200:
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Info"
-  /definition:
-    get:
-      operationId: definition
-      responses:
-        200:
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Definition"
-  /predict:
+  - url: https://demos.deepset.ai
+paths: 
+  /models/2/inference:
     post:
-      operationId: predict
+      operationId: inference
       requestBody:
         description: ""
         content:
@@ -48,26 +22,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Output"
+
 components:
   schemas:
-    Info:
-      type: object
-      properties:
-        version:
-          type: string
-        project:
-          type: string
-        service:
-          type: string
-        language:
-          type: string
-        type:
-          type: string
-        date:
-          type: string
-          format: date-time
-    Definition:
-      type: object
     Input:
       type: object
       properties:
