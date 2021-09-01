@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: 5elementsofai
   name: question-answering
   labels:
     app: question-answering
@@ -17,7 +16,7 @@ spec:
     spec:
       containers:
         - name: question-answering
-          image: 5elementsofai/question-answering:<VERSION>
+          image: aicollaboration/question-answering:30dd49434c7f53966006fb2dacdd7a326c169b6c
           imagePullPolicy: Always
           env:
           - name: PYTHONUNBUFFERED
