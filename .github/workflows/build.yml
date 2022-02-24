@@ -68,4 +68,4 @@ jobs:
         run: |
            kubectl apply -f deployment/manifests/api-ingress.yml
            kubectl apply -f deployment/manifests/deployment.yml
-           kubectl apply -f deployment/manifests/deployment.yml
+           kubectl apply -f deployment/manifests/service.yml
