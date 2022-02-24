@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: <repo>
-          image: aicollaboration/<repo>:<VERSION>
+          image: ghcr.io/aicollaborationservices/<repo>:<VERSION>
           imagePullPolicy: Always
           env:
           - name: PYTHONUNBUFFERED
