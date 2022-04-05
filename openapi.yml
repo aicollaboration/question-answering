@@ -4,11 +4,57 @@ info:
   version: 1.0.0
   description: It will use a pretrained bert
 servers:
-  - url: https://demos.deepset.ai
-paths: 
-  /models/2/inference:
+  - url: http://localhost:5000
+paths:
+  /api/1.0/ping:
+    get:
+      summary: Ping
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /api/1.0/definition:
+    get:
+      summary: Get definition
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/1.0/info:
+    get:
+      summary: Get info
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    type: string
+                  version:
+                    type: string
+                  service:
+                    type: string
+                  language:
+                    type: string
+                  type:
+                    type: string
+                  date:
+                    type: string
+
+  /api/1.0/predict:
     post:
-      operationId: inference
+      operationId: predict
       requestBody:
         description: ""
         content:
